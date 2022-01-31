@@ -1,4 +1,4 @@
-import Settings from "../data/Settings";
+import UserData from "../data/UserData"
 
 const useSimpleAuth = () => {
 
@@ -6,40 +6,27 @@ const useSimpleAuth = () => {
         || sessionStorage.getItem("check_token") !== null
 
     const register = (user) => {
-        return fetch(`${Settings.remoteURL}/users`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(_ => _.json())
-        .then(response => {
-            if ("id" in response) {
-                const baseUserObject = JSON.stringify(response)
-                let encoded = Buffer.from(baseUserObject).toString("base64")
-                localStorage.setItem("check_token", encoded)
-            }
-        })
+        return UserData.users.create(user)
+            .then(response => {
+                if ("id" in response) {
+                    const baseUserObject = response
+                    let userId = parseInt(baseUserObject.id);
+                    localStorage.setItem("check_token", userId)
+                }
+            })
     }
 
-    const login = (email) => {
-        return fetch(`${Settings.remoteURL}/users?email=${email}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(_ => _.json())
-        .then(matchingUsers => {
-            if (matchingUsers.length > 0) {
-                const baseUserObject = JSON.stringify(matchingUsers[0])
-                let encoded = Buffer.from(baseUserObject).toString("base64")
-                localStorage.setItem("check_token", encoded)
-                return true
-            }
-            return false
-        })
+    const login = (email, password, remember) => {
+        return UserData.users.find(email, password)
+            .then(matchingUsers => {
+                if (matchingUsers.length > 0) {
+                    const baseUserObject = matchingUsers[0]
+                    let userId = baseUserObject.id;
+                    remember.setItem("check_token", userId)
+                    return true
+                }
+                return false
+            })
     }
 
     const logout = () => {
@@ -49,11 +36,8 @@ const useSimpleAuth = () => {
     }
 
     const getCurrentUser = () => {
-        const encoded = localStorage.getItem("check_token")
-        const unencoded = Buffer.from(encoded, "base64").toString("utf8")
-        const parsed = JSON.parse(unencoded)
-        const bare = Object.assign(Object.create(null), parsed)
-        return bare
+        const userId = parseInt(localStorage.getItem("check_token"));
+        return UserData.users.get(userId);
     }
 
     return { isAuthenticated, logout, login, register, getCurrentUser }

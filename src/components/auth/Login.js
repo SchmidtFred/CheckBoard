@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 const Login = () => {
     const [credentials, syncAuth] = useState({
         email: "",
+        password: "",
         remember: false
     })
     const { login } = useSimpleAuth()
@@ -20,7 +21,7 @@ const Login = () => {
             the customer enters into local storage.
         */
         console.log("*** Initiate authentication ***")
-        login(credentials.email, credentials.userName, storage)
+        login(credentials.email, credentials.password, storage)
             .then(success => {
                 if (success) {
                     console.log("*** Rerouting to root URL ***")
@@ -48,6 +49,14 @@ const Login = () => {
                             className="form-control"
                             placeholder="Email address"
                             required autoFocus />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="inputPassword"> Password </label>
+                        <input type="password" onChange={handleUserInput}
+                            id="password"
+                            className="form-control"
+                            placeholder="*******"
+                            required />
                     </fieldset>
                     <fieldset>
                         <input
