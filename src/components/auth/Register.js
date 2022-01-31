@@ -55,7 +55,7 @@ export const Register = () => {
                         required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="inputEmail"> Email address </label>
+                    <label htmlFor="email"> Email address </label>
                     <input type="email" onChange={handleUserInput}
                         id="email"
                         className="form-control"
@@ -63,7 +63,7 @@ export const Register = () => {
                         required />
                 </fieldset>
                 <fieldset>
-                        <label htmlFor="inputPassword"> Password </label>
+                        <label htmlFor="password"> Password </label>
                         <input type="password" onChange={handleUserInput}
                             id="password"
                             className="form-control"
