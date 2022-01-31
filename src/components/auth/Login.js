@@ -43,7 +43,7 @@ const Login = () => {
                     <h1>CheckBoard</h1>
                     <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
                     <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
+                        <label htmlFor="email"> Email address </label>
                         <input type="email" onChange={handleUserInput}
                             id="email"
                             className="form-control"
@@ -51,7 +51,7 @@ const Login = () => {
                             required autoFocus />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="inputPassword"> Password </label>
+                        <label htmlFor="password"> Password </label>
                         <input type="password" onChange={handleUserInput}
                             id="password"
                             className="form-control"
