@@ -7,7 +7,7 @@ export const Register = () => {
         firstName: "",
         lastName: "",
         email: "",
-        employee: false
+        password: ""
     })
     const { register } = useSimpleAuth()
     const history = useHistory()
@@ -16,9 +16,10 @@ export const Register = () => {
         e.preventDefault()
 
         const newUser = {
-            name: `${credentials.firstName} ${credentials.lastName}`,
+            firstName: credentials.firstName,
+            lastName: credentials.lastName,
             email: credentials.email,
-            employee: credentials.employee
+            password: credentials.password
         }
 
         register(newUser).then(() => {
@@ -62,24 +63,13 @@ export const Register = () => {
                         required />
                 </fieldset>
                 <fieldset>
-                    <input
-                        onChange={
-                            (event) => {
-                                const copy = { ...credentials }
-                                if (event.target.value === "on") {
-                                    copy.employee = true
-                                }
-                                else {
-                                    copy.employee = false
-                                }
-                                syncAuth(copy)
-                            }
-                        }
-                        defaultChecked={credentials.employee}
-                        type="checkbox" name="employee" id="employee" />
-                    <label htmlFor="employee"> Employee account? </label>
+                        <label htmlFor="inputPassword"> Password </label>
+                        <input type="password" onChange={handleUserInput}
+                            id="password"
+                            className="form-control"
+                            placeholder="*******"
+                            required />
                 </fieldset>
-
                 <fieldset>
                     <button type="submit">
                         Sign in

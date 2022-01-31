@@ -19,7 +19,7 @@ export const CheckBoard = () => {
             }
         }} />
 
-        <Route path = "/login">
+        <Route path="/login">
             <Login />
         </Route>
 
