@@ -36,7 +36,10 @@ const useSimpleAuth = () => {
     }
 
     const getCurrentUser = () => {
-        const userId = parseInt(localStorage.getItem("check_token"));
+        let userId = parseInt(localStorage.getItem("check_token"));
+        if (!userId) {
+            userId = parseInt(sessionStorage.getItem("check_token"));
+        }
         return UserData.users.get(userId);
     }
 

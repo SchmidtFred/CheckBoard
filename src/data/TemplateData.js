@@ -17,7 +17,7 @@ export default {
             return await fetchIt(`${Settings.remoteURL}/listTeamplates?name_like=${name}`)
         },
         async getAllByUser(userId) {
-            return await fetchIt(`${Settings.remoteURL}/listTemplates?userId=${id}`);
+            return await fetchIt(`${Settings.remoteURL}/listTemplates?userId=${userId}`);
         },
         async getAllPublicAndFinished() {
             return await fetchIt(`${Settings.remoteURL}/listTemplates?public=true&finished=true`);

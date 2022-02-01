@@ -1,32 +1,75 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import useSimpleAuth from "../../hooks/useSimpleAuth";
+import { ItemInputList } from "./ItemInputList";
+import TemplateData from "../../data/TemplateData";
 
 export const ListCreate = () => {
     const [ listTemplate, updateTemplate ] = useState({
         name: "",
         description:    "",
         revealStart:    "",
-        gridWidth:      0,
-        gridHeight:     0,
         userId:         0,
         public:         false,
         finished:       false
     });
+    //separating these from the listTemplate so I can use them to adjust listitemTotal independently
+    const [ gridWidth, setWidth ] = useState(0);
+    const [ gridHeight, setHeight ] = useState(0);
+    //track list item totals
     const [ listItemTotal, setItemTotal ] = useState(0);
+    //keep track of all of our listItems in an array of objects
+    // {text: "", startRevealed: false} listTemplateId gets set when we create the template
+    const [ listItems, setListItems ] = useState([]);
+    const [ currentUser, setUser ] = useState({});
     const gridOptionsArray = [1,2,3,4,5,6,7,8,9,10];
     const { getCurrentUser } = useSimpleAuth();
+    const history = useHistory();
 
-    //Adjust our list item total whenever we change grid height and width
+
+    //set our user
+    useEffect(() => {
+        getCurrentUser().then((user) => setUser(user))
+    }, [])
+
+    //Adjust our list item total and listItems whenever we change grid height and width
     useEffect(() =>{
-        setItemTotal(listTemplate.gridWidth * listTemplate.gridHeight);
-    }, [listTemplate]);
+        const newTotal = gridWidth * gridHeight
+        //now update the listItems array
+        const diff = newTotal - listItemTotal;
+        if (diff !== 0) {
+            let copy;
+            if (listItems.length > 0) {
+                copy = listItems.map((m) => ({...m}));
+            } else {
+                copy = [];
+            }
+            if (diff > 0) {
+                //add more empty objects to the end of the array
+                for (let i = 0; i < diff; i++) {
+                    copy.push({text: "", startRevealed: false, tempId: copy.length + 1});
+                }
+            } else {
+                //remove the last ones from the array
+                for (let i = 0; i > diff; i++) {
+                    copy.pop();
+                }
+            }
+            setListItems(copy);
+        }
+        setItemTotal(newTotal);
+    }, [gridWidth, gridHeight]);
 
     const handleUserInput = (event) => {
         const copy = {...listTemplate};
         const id = event.target.id;
         //Make sure that we are getting an integer or boolean where we need it
         if (id.startsWith("grid")) {
-            copy[id] = parseInt(event.target.value);
+            if (id === "gridWidth") {
+                setWidth(parseInt(event.target.value));
+            } else {
+                setHeight(parseInt(event.target.value));
+            }
         } else if (id === "public" || id === "public") {
             if (event.target.value === "on") {
                 copy[id] = true;
@@ -38,6 +81,39 @@ export const ListCreate = () => {
         }
         updateTemplate(copy);
     };
+
+    //create the template and all of the boardSquareTemplates
+    const createTemplate = () => {
+        
+
+        const templateObject = {
+            name: listTemplate.name,
+            description: listTemplate.description,
+            revealStart: listTemplate.revealStart,
+            gridWidth: gridWidth,
+            gridHeight: gridHeight,
+            userId: currentUser.id,
+            public: listTemplate.public,
+            finished: listTemplate.finished
+        }
+        
+        //add this to promisearray
+        TemplateData.lists.create(templateObject).then((templateObject) => {
+            const promiseArray = [];
+            listItems.forEach(item => {
+                const itemObject = {
+                    listTemplateId: templateObject.id,
+                    text: item.text,
+                    startRevealed: item.startRevealed
+                };
+
+                promiseArray.push(TemplateData.squares.create(itemObject));
+            });
+
+            //resolve promise then go to list edit
+            return Promise.all(promiseArray).then(() => history.push(`/ListEdit/${templateObject.id}`));
+        })
+    }
 
     return (
         <>
@@ -72,8 +148,10 @@ export const ListCreate = () => {
                 <label htmlFor="public">Public</label>
                 <input type="checkbox" onChange={handleUserInput} name="public" id="public" />
             </div>
-
-            {/* ListItemInput goes here */}
+            <div className="saveButton">
+                <button onClick={createTemplate}>Save</button>
+            </div>
+            <ItemInputList listItems={listItems} setListItems={setListItems} />
         </>
     )
 }
