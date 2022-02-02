@@ -37,21 +37,29 @@ export const ListCreate = () => {
 
     //set our template if we have one alread
     useEffect(() => {
-        if (templateId) {
+        if (templateId && currentUser.id) {
             TemplateData.lists.get(templateId)
                 .then((data) => {
+                    if (data.userId === currentUser.id) {
                     updateTemplate(data);
                     setWidth(data.gridWidth);
                     setHeight(data.gridHeight);
+                    } else {
+                        history.push("/ListCreate");
+                        throw new Error("incorrect user for chosen board")
+                    }
                 })
                 .then(() => TemplateData.squares.getAllByTemplate(templateId))
                 .then((data) => {
                     setListItems(data);
                     setStartingList(data);
                     setStartingTotal(data.length)
+                })
+                .catch(error => {
+                    console.log(error.message);
                 });
     }   
-    }, [templateId])
+    }, [currentUser])
     
     //Adjust our list item total and listItems whenever we change grid height and width
     useEffect(() =>{
@@ -98,7 +106,7 @@ export const ListCreate = () => {
             } else {
                 setHeight(parseInt(event.target.value));
             }
-        } else if (id === "public" || id === "public") {
+        } else if (id === "public" || id === "finished") {
             if (event.target.value === "on") {
                 copy[id] = true;
             } else {
@@ -112,7 +120,8 @@ export const ListCreate = () => {
 
        //update the template and all existing board squares, as well as create new boardsquares where needed
     const putTemplate = () => {
-        
+        //this variable will track if there any empty list items when someone clicks finish
+        let hasEmptyListItem = false;
 
         const templateObject = {
             name: listTemplate.name,
@@ -151,6 +160,9 @@ export const ListCreate = () => {
                     internalTempId: copy.internalTempId
                 };
 
+                if (itemObject.text === "") {
+                    hasEmptyListItem = true;
+                }
                 promiseArray.push(TemplateData.squares.update(itemObject, startingListItems[i].id));
             };
 
@@ -166,12 +178,26 @@ export const ListCreate = () => {
                         internalTempId: copy.internalTempId
                     };
 
+                    if (itemObject.text === "") {
+                        hasEmptyListItem = true;
+                    }
+
                     promiseArray.push(TemplateData.squares.create(itemObject));
                 }
             }
 
+
             //resolve promise then go to list edit
-            return Promise.all(promiseArray).then(() => history.push(`/ListCreate/${templateObject.id}`));
+            return Promise.all(promiseArray).then(() => {
+                //unmark the template as finished
+                if (templateObject.finished && hasEmptyListItem) {
+                    const copy = templateObject;
+                    copy.finished = false;
+                    TemplateData.lists.update(templateObject, templateId).then((tempObject) => history.push(`/ListCreate/${tempObject.id}`))
+                } else {
+                    history.push(`/ListCreate/${templateObject.id}`);
+                }
+            });
         })
     }
 
