@@ -27,6 +27,7 @@ export const ListCreate = () => {
     const gridOptionsArray = [1,2,3,4,5,6,7,8,9,10];
     const { getCurrentUser } = useSimpleAuth();
     const history = useHistory();
+    const [ checked, setChecked ] = useState(true);
     const { templateId } = useParams();
 
 
@@ -107,7 +108,7 @@ export const ListCreate = () => {
                 setHeight(parseInt(event.target.value));
             }
         } else if (id === "public" || id === "finished") {
-            if (event.target.value === "on") {
+            if (event.target.checked) {
                 copy[id] = true;
             } else {
                 copy[id] = false;
@@ -193,7 +194,11 @@ export const ListCreate = () => {
                 if (templateObject.finished && hasEmptyListItem) {
                     const copy = templateObject;
                     copy.finished = false;
-                    TemplateData.lists.update(templateObject, templateId).then((tempObject) => history.push(`/ListCreate/${tempObject.id}`))
+                    window.alert("Fill out all list items before saving as complete") //replace with modal
+                    TemplateData.lists.update(templateObject, templateId).then((tempObject) => {
+                        updateTemplate(tempObject);
+                        history.push(`/ListCreate/${tempObject.id}`);
+                    })
                 } else {
                     history.push(`/ListCreate/${templateObject.id}`);
                 }
@@ -204,7 +209,9 @@ export const ListCreate = () => {
 
      //create the template and all of the boardSquareTemplates
     const createTemplate = () => {
-        
+        //this variable will track if there any empty list items when someone clicks finish
+        let hasEmptyListItem = false;
+
         const templateObject = {
             name: listTemplate.name,
             description: listTemplate.description,
@@ -229,8 +236,22 @@ export const ListCreate = () => {
 
                 promiseArray.push(TemplateData.squares.create(itemObject));
             });
-             //resolve promise then go to list edit
-             return Promise.all(promiseArray).then(() => history.push(`/ListCreate/${templateObject.id}`));
+             
+            //resolve promise then go to list edit
+            return Promise.all(promiseArray).then(() => {
+                //unmark the template as finished
+                if (templateObject.finished && hasEmptyListItem) {
+                    const copy = templateObject;
+                    copy.finished = false;
+                    window.alert("Fill out all list items before saving as complete") //replace with modal
+                    TemplateData.lists.update(templateObject, templateId).then((tempObject) => {
+                        updateTemplate(tempObject);
+                        history.push(`/ListCreate/${tempObject.id}`);
+                    })
+                } else {
+                    history.push(`/ListCreate/${templateObject.id}`);
+                }
+            });
         })
     }
 
@@ -263,9 +284,9 @@ export const ListCreate = () => {
             </div>
             <div className="templateCheckboxes">
                 <label htmlFor="finished">Complete</label>
-                <input type="checkbox" onChange={handleUserInput} name="finished" id="finished" defaultChecked={listTemplate.finished} />
+                <input type="checkbox" onChange={handleUserInput} name="finished" id="finished" checked={listTemplate.finished} />
                 <label htmlFor="public">Public</label>
-                <input type="checkbox" onChange={handleUserInput} name="public" id="public" defaultChecked={listTemplate.public} />
+                <input type="checkbox" onChange={handleUserInput} name="public" id="public" checked={listTemplate.public} />
             </div>
             <div className="saveButton">
                 <button onClick={templateId ? putTemplate : createTemplate}>Save</button>
@@ -273,4 +294,4 @@ export const ListCreate = () => {
             <ItemInputList listItems={listItems} setListItems={setListItems} />
         </>
     )
-}
+}   

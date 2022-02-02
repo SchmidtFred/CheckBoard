@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import TemplateData from "../../data/TemplateData";
 import useSimpleAuth from "../../hooks/useSimpleAuth";
 import { UserBoards } from "./UserBoards";
-
+import { CommunityBoards } from "./CommunityBoards";
 
 export const HomePage = () => {
     const [ currentUser, setUser ] = useState({});
@@ -26,7 +25,7 @@ export const HomePage = () => {
 
             <h2 className="">Start A Board</h2>
             <UserBoards currentUser={currentUser} />
-            {/* The list of community boards goes here */}
+            <CommunityBoards currentUser={currentUser} />
         </>
     )
 }
