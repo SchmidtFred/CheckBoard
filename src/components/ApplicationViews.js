@@ -10,7 +10,11 @@ export const ApplicationViews = () => {
                 <HomePage />
             </Route>
 
-            <Route path="/ListCreate">
+            <Route exact path="/ListCreate">
+                <ListCreate />
+            </Route>
+
+            <Route path="/ListCreate/:templateId(\d+)">
                 <ListCreate />
             </Route>
         </>

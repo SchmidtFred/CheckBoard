@@ -14,16 +14,16 @@ export const ItemInput = ({listItem, listItemsArray, setListItemsArray}) => {
             copy.text = event.target.value;
         }
         const arrayCopy = listItemsArray.map((e) => ({...e}));
-        const itemIndex = arrayCopy.findIndex(i => i.tempId === listItem.tempId);
+        const itemIndex = arrayCopy.findIndex(i => i.internalTempId === listItem.internalTempId);
         arrayCopy[itemIndex] = copy;
         setListItemsArray(arrayCopy);
     }
 
     return (<>
-                <label htmlFor={`text--${listItem.tempId}`} >Square Text</label>
-                <input type="text" onKeyUp={handleUserInput} id={`text--${listItem.tempId}`} className="form-control" placeholder={`Square - ${listItem.tempId}`}></input>
+                <label htmlFor="text" >Square Text</label>
+                <input type="text" onKeyUp={handleUserInput} id='text' className="form-control" defaultValue={listItem.text} placeholder={`Square - ${listItem.internalTempId}`}/>
                 <label htmlFor="startRevealed">Start Revealed</label>
-                <input type="checkbox" onChange={handleUserInput} name="startRevealed" id="startRevealed" />
+                <input type="checkbox" onChange={handleUserInput} name="startRevealed" id="startRevealed" defaultChecked={listItem.startRevealed} />
             </>
     )
 

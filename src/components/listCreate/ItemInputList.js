@@ -9,7 +9,7 @@ export const ItemInputList = ({listItems, setListItems}) => {
             <section className="inputList">
                 <h2>What Goes In Your Squares</h2>
                 {listItems.length > 0 ? listItems.map(item => {
-                           return <div className="inputList__item" key={item.tempId}>
+                           return <div className="inputList__item" key={item.internalTempId}>
                                <ItemInput  listItem={item} listItemsArray={listItems} setListItemsArray={setListItems} />
                            </div>
                 }) : null}
