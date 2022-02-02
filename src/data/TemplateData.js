@@ -22,6 +22,12 @@ export default {
         async getAllPublicAndFinished() {
             return await fetchIt(`${Settings.remoteURL}/listTemplates?public=true&finished=true`);
         },
+        async update(templateObject, templateId) {
+            return await fetchIt(`${Settings.remoteURL}/listTemplates/${templateId}`, "PUT", JSON.stringify(templateObject));
+        },
+        async delete(id) {
+            return await fetchIt(`${Settings.remoteURL}/listTemplates/${id}`, "DELETE");
+        }
 
         //may add search functions to find by size here 
     },
@@ -35,6 +41,12 @@ export default {
         },
         async getAllByTemplate(templateId) {
             return await fetchIt(`${Settings.remoteURL}/boardSquareTemplates/?listTemplateId=${templateId}`)
+        },
+        async update(squareObject, squareId) {
+            return await fetchIt(`${Settings.remoteURL}/boardSquareTemplates/${squareId}`, "PUT", JSON.stringify(squareObject));
+        }, 
+        async delete(id) {
+            return await fetchIt(`${Settings.remoteURL}/boardSquareTemplates/${id}`, "DELETE");
         }
     }
 }

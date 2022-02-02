@@ -39,6 +39,9 @@ export default {
         },
         async getAll() {
             return await fetchIt(`${Settings.remoteURL}/likes`);
+        },
+        async delete(id) {
+            return await fetchIt(`${Settings.remoteURL}/likes/${id}`, "DELETE");
         }
     }
 }
