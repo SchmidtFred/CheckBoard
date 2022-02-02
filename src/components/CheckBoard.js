@@ -4,6 +4,7 @@ import { ApplicationViews } from "./ApplicationViews";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import useSimpleAuth from "../hooks/useSimpleAuth";
+import { NavBar } from "./navbar/navbar";
 
 export const CheckBoard = () => {
     const { isAuthenticated } = useSimpleAuth();
@@ -12,6 +13,7 @@ export const CheckBoard = () => {
         <Route render={() => {
             if (isAuthenticated()) {
                 return <>
+                    <NavBar />
                     <ApplicationViews />
                 </>
             } else {
