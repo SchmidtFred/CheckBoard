@@ -20,7 +20,7 @@ export default {
             return await fetchIt(`${Settings.remoteURL}/listTemplates?userId=${userId}`);
         },
         async getAllPublicAndFinished() {
-            return await fetchIt(`${Settings.remoteURL}/listTemplates?public=true&finished=true`);
+            return await fetchIt(`${Settings.remoteURL}/listTemplates?public=true&finished=true&_expand=user`);
         },
         async update(templateObject, templateId) {
             return await fetchIt(`${Settings.remoteURL}/listTemplates/${templateId}`, "PUT", JSON.stringify(templateObject));

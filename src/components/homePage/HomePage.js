@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import useSimpleAuth from "../../hooks/useSimpleAuth";
+import { UserBoards } from "./UserBoards";
+import { CommunityBoards } from "./CommunityBoards";
 
 export const HomePage = () => {
+    const [ currentUser, setUser ] = useState({});
+    const { getCurrentUser } = useSimpleAuth();
     const history = useHistory();
 
+    useEffect(() => {
+        getCurrentUser().then((data) => setUser(data));
+    }, [])
     return (
         <>
             <h1 className="siteName">CheckBoard</h1>
@@ -16,8 +24,8 @@ export const HomePage = () => {
             <button className="btn" onClick={() => history.push("/ListCreate")} >Create New Board</button>
 
             <h2 className="">Start A Board</h2>
-            {/* The list of user boards goes here */}
-            {/* The list of community boards goes here */}
+            <UserBoards currentUser={currentUser} />
+            <CommunityBoards currentUser={currentUser} />
         </>
     )
 }

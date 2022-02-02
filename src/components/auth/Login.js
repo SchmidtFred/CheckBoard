@@ -63,7 +63,7 @@ const Login = () => {
                             onChange={
                                 (event) => {
                                     const copy = {...credentials}
-                                    if (event.target.value === "on") {
+                                    if (event.target.checked) {
                                         copy.remember = true
                                     }
                                     else {
