@@ -27,7 +27,6 @@ export const ListCreate = () => {
     const gridOptionsArray = [1,2,3,4,5,6,7,8,9,10];
     const { getCurrentUser } = useSimpleAuth();
     const history = useHistory();
-    const [ checked, setChecked ] = useState(true);
     const { templateId } = useParams();
 
 
@@ -123,6 +122,7 @@ export const ListCreate = () => {
     const putTemplate = () => {
         //this variable will track if there any empty list items when someone clicks finish
         let hasEmptyListItem = false;
+        let hasOneRevealed   = false;
 
         const templateObject = {
             name: listTemplate.name,
@@ -164,6 +164,11 @@ export const ListCreate = () => {
                 if (itemObject.text === "") {
                     hasEmptyListItem = true;
                 }
+
+                if (itemObject.startRevealed) {
+                    hasOneRevealed = true;
+                }
+
                 promiseArray.push(TemplateData.squares.update(itemObject, startingListItems[i].id));
             };
 
@@ -183,6 +188,10 @@ export const ListCreate = () => {
                         hasEmptyListItem = true;
                     }
 
+                    if (itemObject.startRevealed) {
+                        hasOneRevealed = true;
+                    }
+
                     promiseArray.push(TemplateData.squares.create(itemObject));
                 }
             }
@@ -190,11 +199,15 @@ export const ListCreate = () => {
 
             //resolve promise then go to list edit
             return Promise.all(promiseArray).then(() => {
-                //unmark the template as finished
-                if (templateObject.finished && hasEmptyListItem) {
+                //unmark the template as finished if it has an empty item 
+                if ((templateObject.finished && hasEmptyListItem) || (templateObject.finished && !hasOneRevealed)) {
                     const copy = templateObject;
                     copy.finished = false;
-                    window.alert("Fill out all list items before saving as complete") //replace with modal
+                    if (hasEmptyListItem) {
+                        window.alert("Fill out all list items before saving as complete") //replace with modal
+                    } else {
+                        window.alert("Make sure you have at least one item start revealed!")
+                    }
                     TemplateData.lists.update(templateObject, templateId).then((tempObject) => {
                         updateTemplate(tempObject);
                         history.push(`/ListCreate/${tempObject.id}`);
@@ -211,6 +224,7 @@ export const ListCreate = () => {
     const createTemplate = () => {
         //this variable will track if there any empty list items when someone clicks finish
         let hasEmptyListItem = false;
+        let hasOneRevealed = false;
 
         const templateObject = {
             name: listTemplate.name,
@@ -234,16 +248,28 @@ export const ListCreate = () => {
                     internalTempId: item.internalTempId
                 };
 
+                if (itemObject.text === "") {
+                    hasEmptyListItem = true;
+                }
+
+                if (itemObject.startRevealed) {
+                    hasOneRevealed = true;
+                }
+
                 promiseArray.push(TemplateData.squares.create(itemObject));
             });
              
             //resolve promise then go to list edit
             return Promise.all(promiseArray).then(() => {
                 //unmark the template as finished
-                if (templateObject.finished && hasEmptyListItem) {
+                if ((templateObject.finished && hasEmptyListItem) || (templateObject.finished && !hasOneRevealed)) {
                     const copy = templateObject;
                     copy.finished = false;
-                    window.alert("Fill out all list items before saving as complete") //replace with modal
+                    if (hasEmptyListItem) {
+                        window.alert("Fill out all list items before saving as complete") //replace with modal
+                    } else {
+                        window.alert("Make sure you have at least one item start revealed!")
+                    }
                     TemplateData.lists.update(templateObject, templateId).then((tempObject) => {
                         updateTemplate(tempObject);
                         history.push(`/ListCreate/${tempObject.id}`);
