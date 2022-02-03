@@ -5,7 +5,7 @@ export const ItemInput = ({listItem, listItemsArray, setListItemsArray}) => {
     const handleUserInput = (event) => {
         const copy = {...listItem};
         if (event.target.id === "startRevealed") {
-            if (event.target.value === "on") {
+            if (event.target.checked) {
                 copy.startRevealed = true;
             } else {
                 copy.startRevealed = false;
@@ -23,7 +23,7 @@ export const ItemInput = ({listItem, listItemsArray, setListItemsArray}) => {
                 <label htmlFor="text" >Square Text</label>
                 <input type="text" onKeyUp={handleUserInput} id='text' className="form-control" defaultValue={listItem.text} placeholder={`Square - ${listItem.internalTempId}`}/>
                 <label htmlFor="startRevealed">Start Revealed</label>
-                <input type="checkbox" onChange={handleUserInput} name="startRevealed" id="startRevealed" defaultChecked={listItem.startRevealed} />
+                <input type="checkbox" onChange={handleUserInput} name="startRevealed" id="startRevealed" checked={listItem.startRevealed} />
             </>
     )
 

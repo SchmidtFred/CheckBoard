@@ -15,6 +15,9 @@ export default {
         },
         async getExpanded(listId) {
             return await fetchIt(`${Settings.remoteURL}/activeLists/${listId}?_embed=boardSquares`)
+        },
+        async delete(id) {
+            return await fetchIt(`${Settings.remoteURL}/activeLists/${id}`, "DELETE");
         }
     },
 
@@ -23,10 +26,16 @@ export default {
             return await fetchIt(`${Settings.remoteURL}/boardSquares/${id}`);
         },
         async create(squareObject) {
-            return await fetchIt(`${Settings.remoteURL}/boardSqures`, "POST", JSON.stringify(squareObject));
+            return await fetchIt(`${Settings.remoteURL}/boardSquares`, "POST", JSON.stringify(squareObject));
+        },
+        async update(squareObject, squareId) {
+            return await fetchIt(`${Settings.remoteURL}/boardSquares/${squareId}`, "PUT", JSON.stringify(squareObject));
         },
         async getAllByList(listId) {
-            return await fetchIt(`${Settings.remoteURL}/boardSquareTemplates/?activeListId=${listId}`)
+            return await fetchIt(`${Settings.remoteURL}/boardSquares/?activeListId=${listId}`)
+        },
+        async delete(id) {
+            return await fetchIt(`${Settings.remoteURL}/boardSquares/${id}`, "DELETE");
         }
     }
 }

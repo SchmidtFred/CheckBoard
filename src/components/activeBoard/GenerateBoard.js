@@ -1,7 +1,7 @@
 import TemplateData from "../../data/TemplateData";
 import ActiveListData from "../../data/ActiveListData";
 
-async export default GenerateBoard = (templateId, currentUser) => {
+async function GenerateBoard(templateId, currentUser) {
     //grab our template
     const template = await TemplateData.lists.getExpanded(templateId);
     //randomize our list items using the Fisher Yates Method
@@ -51,5 +51,8 @@ async export default GenerateBoard = (templateId, currentUser) => {
         }
     }
 
-    return Promise.all(promiseArray);
+   await Promise.all(promiseArray);
+   return activeList;
 }
+
+export default GenerateBoard;
