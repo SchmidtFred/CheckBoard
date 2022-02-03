@@ -18,11 +18,11 @@ export const ListCreate = () => {
     const [ gridHeight, setHeight ] = useState(0);
     //track list item totals
     const [ listItemTotal, setItemTotal ] = useState(0);
-    const [ startingTotal, setStartingTotal ] = useState(0); // to track how many list items we start with so we can determine what needs to be put, posted, or deleted on an update
+    const [ startingTotal, setStartingTotal ] = useState(0); // to track how many list items we start with so we can determine what needs to be deleted on an update
     //keep track of all of our listItems in an array of objects
     // {text: "", startRevealed: false} listTemplateId gets set when we create the template
-    const [ startingListItems, setStartingList ] = useState([]); //to access the ids of existing items that may not exist at the end
-    const [ listItems, setListItems ] = useState([]);
+    const [ startingListItems, setStartingList ] = useState([]); //to access the ids of existing items that may not exist at the end FOR DELETE SPECIFICALLY
+    const [ listItems, setListItems ] = useState([]); // The most up to date version of this list's data before save. And is updated AFTER save as well.
     const [ currentUser, setUser ] = useState({});
     const gridOptionsArray = [1,2,3,4,5,6,7,8,9,10];
     const { getCurrentUser } = useSimpleAuth();
@@ -76,7 +76,7 @@ export const ListCreate = () => {
             if (diff > 0) {
                 //add more empty objects to the end of the array
                 if (templateId) {
-                    const tempId = templateId;
+                    const tempId = parseInt(templateId);
                     for (let i = 0; i < diff; i++) {
                         copy.push({text: "", startRevealed: false, listTemplateId: tempId, internalTempId: copy.length + 1})
                     }
@@ -138,18 +138,20 @@ export const ListCreate = () => {
         //add this to promisearray
         TemplateData.lists.update(templateObject, templateId).then((templateObject) => {
             const promiseArray = [];
-            const diff = listItemTotal - startingTotal;
+            const diff = listItems.length - startingTotal;
             let endConditional = startingTotal;
+            console.log(endConditional);
 
             if (diff < 0) {
                 //if we have less list items now, delete the extra
-                for (let i = startingTotal -1; i > listItemTotal - 1; i--) {
+                for (let i = startingTotal -1; i > listItems.length - 1; i--) {
                     promiseArray.push(TemplateData.squares.delete(startingListItems[i].id));
                 }
                 //update the end conditional so we aren't putting into ids that don't exist
-                endConditional = listItemTotal;
+                endConditional = listItems.length;
             } 
 
+            console.log(endConditional)
             //update and put the previous list items into the database
             for (let i = 0; i < endConditional; i++)
             {   
@@ -169,13 +171,13 @@ export const ListCreate = () => {
                     hasOneRevealed = true;
                 }
 
-                promiseArray.push(TemplateData.squares.update(itemObject, startingListItems[i].id));
+                promiseArray.push(TemplateData.squares.update(itemObject, listItems[i].id));
             };
 
             //create any new listitems that have been made
             if (diff > 0) {
                 //we have more items now, so create them
-                for (let i = startingTotal; i < listItemTotal; i++) {
+                for (let i = startingTotal; i < listItems.length; i++) {
                     const copy = listItems[i];
                     const itemObject = {
                         listTemplateId: templateObject.id,
@@ -216,7 +218,11 @@ export const ListCreate = () => {
                     history.push(`/ListCreate/${templateObject.id}`);
                 }
             });
-        })
+        }).then(() => TemplateData.squares.getAllByTemplate(templateId))
+        .then((data) => {
+            setListItems(data);
+            setStartingList(data);
+            setStartingTotal(data.length)});
     }
 
 
@@ -270,7 +276,7 @@ export const ListCreate = () => {
                     } else {
                         window.alert("Make sure you have at least one item start revealed!")
                     }
-                    TemplateData.lists.update(templateObject, templateId).then((tempObject) => {
+                    TemplateData.lists.update(templateObject, templateObject.id).then((tempObject) => {
                         updateTemplate(tempObject);
                         history.push(`/ListCreate/${tempObject.id}`);
                     })
@@ -286,22 +292,22 @@ export const ListCreate = () => {
             <h1>Create A New Board</h1>
             <div className="title">
                 <label htmlFor="name">Board Title</label>
-                <input type="text" onChange={handleUserInput} id="name" className="form-control" defaultValue={listTemplate.name} placeholder="Cool Board Name" required autoFocus ></input>
+                <input type="text" onChange={handleUserInput} id="name" className="form-control" value={listTemplate.name} placeholder="Cool Board Name" required autoFocus ></input>
             </div>
             <div className="description">
                 <label htmlFor="description">Board Description</label>
-                <input type="textfield" onChange={handleUserInput} id="description" className="form-control" defaultValue={listTemplate.description} placeholder="Awesome Board Details" required />
+                <input type="textfield" onChange={handleUserInput} id="description" className="form-control" value={listTemplate.description} placeholder="Awesome Board Details" required />
             </div>
             <div className="gridDimensions">
                 <label htmlFor="gridWidth">Grid Width</label>
-                <select onChange={handleUserInput} defaultValue="" name="gridWidth" id="gridWidth">
+                <select onChange={handleUserInput} value={gridWidth} name="gridWidth" id="gridWidth">
                     <option value="0">Set Grid Width</option>
                     {gridOptionsArray.map(x => (
-                        <option key={x} value={x} selected={gridWidth === x ? "selected" : null} >{x}</option>
+                        <option key={x} value={x}  >{x}</option>
                     ))}
                 </select>
                 <label htmlFor="gridHeight">Grid Height</label>
-                <select onChange={handleUserInput} defaultValue="" name="gridHeight" id="gridHeight">
+                <select onChange={handleUserInput} value={gridHeight} name="gridHeight" id="gridHeight">
                     <option value="0">Set Grid Height</option>
                     {gridOptionsArray.map(x => (
                         <option key={x} value={x} selected={gridHeight === x ? "selected" : null}>{x}</option>

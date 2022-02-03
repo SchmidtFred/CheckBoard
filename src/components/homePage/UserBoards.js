@@ -5,12 +5,13 @@ import GenerateBoard from "../activeBoard/GenerateBoard";
 
 export const UserBoards = ({currentUser}) => {
     const [ userTemplates, setUserTemplates ] = useState([]);
+    const [ effectTrigger, setEffectTrigger ] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
             TemplateData.lists.getAllByUser(currentUser.id)
             .then((data) => setUserTemplates(data));
-    }, [currentUser]);
+    }, [currentUser, effectTrigger]);
 
     return (<>
     <section className="userBoards">
@@ -25,7 +26,7 @@ export const UserBoards = ({currentUser}) => {
                     <button className="btn btn__start notReady">No Start</button>
                     }   
                     <button className="btn btn_edit" onClick={() => history.push(`/ListCreate/${temp.id}`)}>Edit</button>
-                    <button className="btn btn__delete">Delete</button>
+                    <button className="btn btn__delete" onClick={() => TemplateData.lists.delete(temp.id).then(() => effectTrigger ? setEffectTrigger(false) : setEffectTrigger(true))}>Delete</button>
                 </li>
             })
         }
