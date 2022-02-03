@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TemplateData from "../../data/TemplateData";
+import GenerateBoard from "../activeBoard/GenerateBoard";
 
 export const UserBoards = ({currentUser}) => {
     const [ userTemplates, setUserTemplates ] = useState([]);
@@ -20,7 +21,7 @@ export const UserBoards = ({currentUser}) => {
                     <div className="userBoardPublic">{temp.public ? "Public" : "NotPub"}</div>
                     <div className="boardName">{temp.name}</div>
                     {temp.finished ?
-                    <button className="btn btn__start ready">Start</button> :
+                    <button className="btn btn__start ready" onClick={() => GenerateBoard(temp.id, currentUser).then((activeList) => history.push(`ActiveBoard/${activeList.id}`))}>Start</button> :
                     <button className="btn btn__start notReady">No Start</button>
                     }   
                     <button className="btn btn_edit" onClick={() => history.push(`/ListCreate/${temp.id}`)}>Edit</button>

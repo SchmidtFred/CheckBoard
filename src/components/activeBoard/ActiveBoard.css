@@ -1,0 +1,11 @@
+.board {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.gridRow {
+    display: flex;
+    flex-flow: row no-wrap;
+    justify-content: center;
+}
+

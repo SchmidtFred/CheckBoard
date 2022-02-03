@@ -8,7 +8,7 @@ export default {
             return await fetchIt(`${Settings.remoteURL}/listTemplates/${id}`);
         },
         async getExpanded(id) {
-            return await fetchIt(`${Settings.remoteURL}/listTemplates/${id}?_embed=boardSquareTemplates&_embed=revealedPositions&_expand=userId`)
+            return await fetchIt(`${Settings.remoteURL}/listTemplates/${id}?_embed=boardSquareTemplates&_embed=revealedPositions&_expand=user`)
         },
         async create(templateObject) {
             return await fetchIt(`${Settings.remoteURL}/listTemplates`, "POST", JSON.stringify(templateObject));

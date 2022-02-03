@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import { ActiveBoard } from "./activeBoard/ActiveBoard";
 import { HomePage } from "./homePage/HomePage";
 import { ListCreate } from "./listCreate/ListCreate";
 
@@ -16,6 +17,10 @@ export const ApplicationViews = () => {
 
             <Route path="/ListCreate/:templateId(\d+)">
                 <ListCreate />
+            </Route>
+
+            <Route path="/ActiveBoard/:boardId(\d+)">
+                <ActiveBoard />
             </Route>
         </>
     )

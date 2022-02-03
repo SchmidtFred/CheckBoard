@@ -1,0 +1,20 @@
+.gridSquare {
+    margin: 0;
+    text-align: center;
+    border: solid black 1px;
+    width: 10rem;
+    height: 10rem;
+}
+
+.unrevealed {
+    background-color: red;
+    color: red;
+}
+
+.revealed {
+    background-color: pink;
+}
+
+.completed {
+    background-color: green;
+}
