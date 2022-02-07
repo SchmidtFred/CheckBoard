@@ -48,12 +48,8 @@ export const ActiveBoard = () => {
 
 
     const deleteActiveList = () => {
-        // const promiseArray = [];
+
         ActiveListData.lists.delete(activeList.id).then(() => history.push("/"));
-        // boardSquares.forEach((square) => {
-        //     promiseArray.push(ActiveListData.squares.delete(square.id));
-        // });
-        // return Promise.all(promiseArray).then(() => history.push("/"));
     }
 
 

@@ -1,0 +1,26 @@
+.communityBoards {
+    margin: auto;
+    text-align: center;
+}
+
+.communityBoardsList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.communityBoardsItem {
+    display: flex;
+    margin: 5px auto;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    min-width: 300px;
+    width: 20%;
+}
+
+.communityBoardName {
+    word-wrap: normal;
+    text-align: left;
+    width: 25%;
+}

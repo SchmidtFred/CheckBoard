@@ -1,0 +1,37 @@
+.userBoards {
+    margin: auto;
+    text-align: center;
+}
+
+.userBoardsList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.userBoardsItem {
+    display: flex;
+    margin: 5px auto;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    min-width: 300px;
+    width: 20%;
+}
+
+.userBoardHead {
+    text-align: left;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.userBoardName {
+    word-wrap: normal;
+    width: 100%;
+}
+
+.userBoardsButtons {
+    display: flex;
+    flex-flow: column nowrap;
+}

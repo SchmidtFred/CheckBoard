@@ -1,13 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Supermercado One', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #4066E0;
+  color: #B9BFFF;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.btn {
+  min-height: 2rem;
+  min-width: 6rem;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #663399;
+  transition: 0.5s;
+  color: #B9BFFF;
+  border: none;
+}
+
+.btn:hover, select:hover {
+  background-color: #4066E0;
+  cursor: pointer;
+}
+
+select {
+  transition: 0.3s;
+  appearance: none;
+  outline: none;
+  background-color: #663399;
+  color: #B9BFFF;
+  border: none;
+  margin: 0;
+  font-family: inherit;
+  font-size: 2rem;
+  cursor: inherit;
+  line-height: inherit;
+}
+
+select:focus {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform-origin: 50% 0%;
+  transform: rotateX(60deg);
 }
