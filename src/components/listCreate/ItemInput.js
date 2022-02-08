@@ -4,7 +4,7 @@ export const ItemInput = ({listItem, listItemsArray, setListItemsArray}) => {
 
     const handleUserInput = (event) => {
         const copy = {...listItem};
-        if (event.target.id === "startRevealed") {
+        if (event.target.id.startsWith("startRevealed--")) {
             if (event.target.checked) {
                 copy.startRevealed = true;
             } else {
@@ -20,10 +20,15 @@ export const ItemInput = ({listItem, listItemsArray, setListItemsArray}) => {
     }
 
     return (<>
-                <label htmlFor="text" >Square Text</label>
-                <input type="text" onKeyUp={handleUserInput} id='text' className="form-control" defaultValue={listItem.text} placeholder={`Square - ${listItem.internalTempId}`}/>
-                <label htmlFor="startRevealed">Start Revealed</label>
-                <input type="checkbox" onChange={handleUserInput} name="startRevealed" id="startRevealed" checked={listItem.startRevealed} />
+                <input type="text" onChange={handleUserInput} id={`text--${listItem.internalTempId}`}  className="form-control" value={listItem.text} placeholder={`Square - ${listItem.internalTempId}`} required/>
+                <label htmlFor={`text--${listItem.internalTempId}`} className="form-label">{`Square - ${listItem.internalTempId}`}</label>
+                <div className="revealedToggle">
+                    <label htmlFor={`startRevealed--${listItem.internalTempId}`} className="switch">                       
+                        <input type="checkbox" onChange={handleUserInput} name="startRevealed" id={`startRevealed--${listItem.internalTempId}`} checked={listItem.startRevealed} />
+                        <span className="slider round"></span>
+                        <div className="toggleLabel" >Start Revealed</div>
+                    </label>
+                </div>
             </>
     )
 

@@ -1,0 +1,105 @@
+.listCreate {
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.title, .description, .inputList__item {
+    position: relative;
+    padding: 15px 0 0;
+    margin: 1rem auto;
+    width: 20vw;
+}
+
+.listCreate h1 {
+    margin: auto;
+    text-align: center;
+    font-size: 4rem;
+    text-shadow: 0.2rem -0.2rem 0 #663399;
+}
+
+.gridDimensions {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 1rem auto;
+    justify-content: space-between;
+}
+
+.gridDimensionLabel {
+    cursor: pointer;
+    width: 20vw;
+}
+
+.gridDimensionLabel select {
+    text-align: center;
+}
+
+.saveButton {
+    margin: 1rem auto;
+    position: relative;
+}
+
+.saveBtn{
+    font-size: 2rem;
+    display: inline-block;
+    min-width: 20rem;
+    position: relative;
+}
+
+.saveBtn:hover {
+    background-color: #663399;
+    cursor: pointer;
+}
+
+.saveBtn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 30rem;
+    height: 30rem;
+    background-color: #22277A;
+    transform: translate(-44%, -46%);
+    
+    clip-path: ellipse(0% 0% at 50% 50%);
+    transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.saveBtn:hover::before {
+    clip-path: ellipse(45% 45% at 50% 50%);
+}
+
+.templateCheckboxes {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 1rem auto;
+    min-width: 30vw;
+    width: 50%;
+}
+
+.inputList__item {
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+    /* To adjust and make appear centered with the toggle to the right */
+    padding-right: 6rem;
+}
+
+.inputList__item .form-control {
+    width: 20vw;
+}
+
+.revealToggle {
+    position: relative;
+}
+
+.toggleLabel {
+    position: absolute;
+    white-space: nowrap;
+    cursor: pointer;
+    left: 4rem;
+    top: 0;
+    margin-left: 5px;
+}

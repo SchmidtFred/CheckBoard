@@ -25,16 +25,20 @@ code {
   border: none;
 }
 
-.btn:hover, select:hover {
+.btn:hover {
   background-color: #4066E0;
   cursor: pointer;
 }
 
+input {
+  font-size: 1rem;
+  font-family: inherit;
+}
+
 select {
   transition: 0.3s;
-  appearance: none;
   outline: none;
-  background-color: #663399;
+  background-color: #22277A;
   color: #B9BFFF;
   border: none;
   margin: 0;
@@ -42,11 +46,98 @@ select {
   font-size: 2rem;
   cursor: inherit;
   line-height: inherit;
+  min-height: 2rem;
+  min-width: 6rem;
 }
 
-select:focus {
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  transform-origin: 50% 0%;
-  transform: rotateX(60deg);
+select:hover {
+  cursor: pointer;
+}
+
+
+/* Textfield Styling */
+.form-control {
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  outline: 0;
+  border-bottom: 2px solid #B9BFFF;
+  color: #B9BFFF;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form-control::placeholder {
+  color: transparent;
+}
+
+.form-label{
+  position: absolute;
+  display: block;
+  font-size: 1.5rem;
+  cursor: pointer;
+  top: 20px;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(#663399, #22277A);
+  border-image-slice: 1;
+}
+
+.form-control:focus ~ .form-label, .form-control:valid ~ .form-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.form-control:required, .form-control:invalid {
+  box-shadow: none;
+}
+
+/* Toggles (checkboxes) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 4rem;
+  height: 2.2rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #22277A;
+  transition: .4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1.65rem;
+  width: 1.5rem;
+  left: 0.3rem;
+  bottom: 0.3rem;
+  background-color: #7953A9;
+  transition: .4s;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(26px);
 }
