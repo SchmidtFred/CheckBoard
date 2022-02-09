@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import useSimpleAuth from "../../hooks/useSimpleAuth";
 import { ItemInputList } from "./ItemInputList";
 import TemplateData from "../../data/TemplateData";
+import "./ListCreate.css";
 
 export const ListCreate = () => {
     const [ listTemplate, updateTemplate ] = useState({
@@ -289,41 +290,58 @@ export const ListCreate = () => {
 
     return (
         <>
+        <section className="listCreate">
             <h1>Create A New Board</h1>
             <div className="title">
-                <label htmlFor="name">Board Title</label>
-                <input type="text" onChange={handleUserInput} id="name" className="form-control" value={listTemplate.name} placeholder="Cool Board Name" required autoFocus ></input>
+                <input type="text" onChange={handleUserInput} id="name" className="form-control" value={listTemplate.name} placeholder="Board Title" required autoFocus />
+                <label htmlFor="name" className="form-label">Board Title</label>
             </div>
+
             <div className="description">
-                <label htmlFor="description">Board Description</label>
                 <input type="textfield" onChange={handleUserInput} id="description" className="form-control" value={listTemplate.description} placeholder="Awesome Board Details" required />
+                <label htmlFor="description" className="form-label">Board Description</label>
             </div>
+
             <div className="gridDimensions">
-                <label htmlFor="gridWidth">Grid Width</label>
-                <select onChange={handleUserInput} value={gridWidth} name="gridWidth" id="gridWidth">
-                    <option value="0">Set Grid Width</option>
-                    {gridOptionsArray.map(x => (
-                        <option key={x} value={x}  >{x}</option>
-                    ))}
-                </select>
-                <label htmlFor="gridHeight">Grid Height</label>
-                <select onChange={handleUserInput} value={gridHeight} name="gridHeight" id="gridHeight">
-                    <option value="0">Set Grid Height</option>
-                    {gridOptionsArray.map(x => (
-                        <option key={x} value={x} selected={gridHeight === x ? "selected" : null}>{x}</option>
-                    ))}
-                </select>
+                <label htmlFor="gridWidth" className="gridDimensionLabel">
+                    <div className="dimensionName">Grid Width</div>
+                    <select onChange={handleUserInput} value={gridWidth} name="gridWidth" id="gridWidth">
+                        <option value="0">Set Grid Width</option>
+                        {gridOptionsArray.map(x => (
+                            <option key={x} value={x}  >{x}</option>
+                        ))}
+                    </select>
+                </label>
+                <label htmlFor="gridHeight" className="gridDimensionLabel">
+                    <div className="dimensionName">Grid Height</div>
+                    <select onChange={handleUserInput} value={gridHeight} name="gridHeight" id="gridHeight">
+                        <option value="0">Set Grid Height</option>
+                        {gridOptionsArray.map(x => (
+                            <option key={x} value={x} selected={gridHeight === x ? "selected" : null}>{x}</option>
+                        ))}
+                    </select>
+                </label>
             </div>
+
             <div className="templateCheckboxes">
-                <label htmlFor="finished">Complete</label>
-                <input type="checkbox" onChange={handleUserInput} name="finished" id="finished" checked={listTemplate.finished} />
-                <label htmlFor="public">Public</label>
-                <input type="checkbox" onChange={handleUserInput} name="public" id="public" checked={listTemplate.public} />
+                <label htmlFor="finished" className="switch">
+                    <input type="checkbox" onChange={handleUserInput} name="finished" id="finished" checked={listTemplate.finished} />
+                    <span className="slider round"></span>
+                    <div className="toggleLabel" >Complete</div>
+                </label>
+                <label htmlFor="public" className="switch">
+                    <input type="checkbox" onChange={handleUserInput} name="public" id="public" checked={listTemplate.public} />
+                    <span className="slider round"></span>
+                    <div className="toggleLabel" >Public</div>
+                </label>
             </div>
+
             <div className="saveButton">
-                <button onClick={templateId ? putTemplate : createTemplate}>Save</button>
+                <button className="btn saveBtn" onClick={templateId ? putTemplate : createTemplate}>Save</button>
             </div>
+
             <ItemInputList listItems={listItems} setListItems={setListItems} />
+        </section>    
         </>
     )
 }   

@@ -1,3 +1,50 @@
+.header {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.headerItem {
+    margin: 1rem auto;
+}
+
+.headerTitle {
+    margin: auto;
+    text-shadow: 0.2rem -0.2rem 0 #663399;
+    font-size: 4rem;
+}
+
+.headerDesc {
+    font-size: 2rem;
+}
+
+.btn-delete {
+    font-size: 2rem;
+    min-width: 20rem;
+    position: relative;
+}
+
+.btn-delete:hover {
+    background-color: #663399;
+    cursor: pointer;
+}
+
+.btn-delete:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 20rem;
+    height: 20rem;
+    background-color: #8B74BD;
+    right: 50%;
+    transform: translate(50%, -45%) rotate(45deg) scale(0);
+    transition: transform 1s ease;
+}
+
+.btn-delete:hover::after {
+    transform: translate(50%, -45%) rotate(45deg) scale(1);
+}
+
+
 .board {
     display: flex;
     flex-flow: column nowrap;

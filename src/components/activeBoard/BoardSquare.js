@@ -1,4 +1,5 @@
 import React from "react";
+import Tilt from "react-parallax-tilt";
 import "./BoardSquare.css";
 import ActiveListData from "../../data/ActiveListData";
 
@@ -38,9 +39,11 @@ export const BoardSquare = ({square, boardSquares, setBoardSquares}) => {
     }
 
     return ( <>
-        <div id={square.id} className={`gridSquare column--${square.xPos} ${square.revealed ? square.completed ? "completed" : "revealed" : "unrevealed"}`}
+    <Tilt tiltEnable={square.revealed} perspective={300} tiltReverse={true} className={`parallax-effect ${square.revealed ? square.completed ? "completed" : "revealed" : "unrevealed"}`} >
+        <div  id={square.id} className={`gridSquare column--${square.xPos}`}
                             onClick={squareClick}>
-                            {square.revealed ? square.text : "secrets"}
+                            <div className="squareText">{square.revealed ? square.text : "secrets"}</div>
                         </div>
+    </Tilt>
     </>)
 }

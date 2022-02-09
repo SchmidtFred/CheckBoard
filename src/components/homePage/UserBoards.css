@@ -1,0 +1,46 @@
+.userBoards {
+    margin: auto;
+    text-align: center;
+}
+
+.userBoardsList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.userBoardsItem {
+    display: flex;
+    margin: 5px auto;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    min-width: 600px;
+    width: 20%;
+}
+
+.userBoardHead {
+    text-align: left;
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.userBoardName {
+    word-wrap: normal;
+    width: 100%;
+    margin-left: 5px;
+    font-size: 1.5rem;
+}
+
+.userBoardsButtons {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.userBoardImg {
+    width: 1.5rem;
+    margin-right: 5px;
+    margin-top:  0.2rem;
+}

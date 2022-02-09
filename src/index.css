@@ -1,13 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Supermercado One', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #4066E0;
+  color: #B9BFFF;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.btn {
+  min-height: 2rem;
+  min-width: 6rem;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #663399;
+  transition: 0.5s;
+  color: #B9BFFF;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #4066E0;
+  cursor: pointer;
+}
+
+input {
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+select {
+  transition: 0.3s;
+  outline: none;
+  background-color: #22277A;
+  color: #B9BFFF;
+  border: none;
+  margin: 0;
+  font-family: inherit;
+  font-size: 2rem;
+  cursor: inherit;
+  line-height: inherit;
+  min-height: 2rem;
+  min-width: 6rem;
+}
+
+select:hover {
+  cursor: pointer;
+}
+
+
+/* Textfield Styling */
+.form-control {
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  outline: 0;
+  border-bottom: 2px solid #B9BFFF;
+  color: #B9BFFF;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form-control::placeholder {
+  color: transparent;
+}
+
+.form-label{
+  position: absolute;
+  display: block;
+  font-size: 1.5rem;
+  cursor: pointer;
+  top: 20px;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(#663399, #22277A);
+  border-image-slice: 1;
+}
+
+.form-control:focus ~ .form-label, .form-control:valid ~ .form-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.form-control:required, .form-control:invalid {
+  box-shadow: none;
+}
+
+/* Toggles (checkboxes) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 4rem;
+  height: 2.2rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #22277A;
+  transition: .4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1.65rem;
+  width: 1.5rem;
+  left: 0.3rem;
+  bottom: 0.3rem;
+  background-color: #7953A9;
+  transition: .4s;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(26px);
 }

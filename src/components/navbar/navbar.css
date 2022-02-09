@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+    margin-top: 2rem;
+    margin-right: 2rem;
+}
+
+.nav-link {
+    color: #B9BFFF;
+    margin: 5px;
+    font-size: 2rem;
+    position: relative;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 4rem;
+    height: 4rem;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(0deg) scale(0);
+    transition: transform 1s ease;
+    background-color: #8B74BD;
+}
+
+.nav-link:hover::after {
+    transform: translate(50%, -50%) rotate(-135deg) scale(1);
+}
