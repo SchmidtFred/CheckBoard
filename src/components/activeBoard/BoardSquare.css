@@ -1,20 +1,40 @@
+.parallax-effect {
+    transform-style: preserve-3d;
+}
+
 .gridSquare {
     margin: 0;
     text-align: center;
-    border: solid black 1px;
+    border: solid #22277A 1px;
     width: 10rem;
     height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+.squareText {
+    transform: translateZ(60px);
+    width: 75%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: wrap;
 }
 
 .unrevealed {
-    background-color: red;
-    color: red;
+    background-color: #7953A9;
+    color: #7953A9;
 }
 
 .revealed {
-    background-color: pink;
+    background-color: #DF73AA;
+    color: #7953A9;
+    cursor: pointer;
 }
 
 .completed {
-    background-color: green;
+    background-color: #B6D871;
+    color: #7953A9;
 }

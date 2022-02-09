@@ -56,9 +56,9 @@ export const ActiveBoard = () => {
     return (
         <>
         <section className="header">
-            <h1>{activeList.name}</h1>
-            <div>{activeList.description}</div>
-            <button className="btn btn-delete" onClick={deleteActiveList}>Delete List</button>
+            <h1 className="headerItem headerTitle">{activeList.name}</h1>
+            <div className="headerItem headerDesc">{activeList.description}</div>
+            <button className="btn btn-delete headerItem" onClick={deleteActiveList}>Delete List</button>
         </section>
         <article className="board">
             {gridArray.length > 0 ? gridArray.map((row) => {
