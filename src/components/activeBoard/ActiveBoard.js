@@ -10,6 +10,8 @@ export const ActiveBoard = () => {
     const [ boardSquares, setBoardSquares ] = useState([]);
     const [ gridArray, setGridArray ] = useState([]);
     const [ currentUser, setCurrentUser ] = useState({});
+    const [ searchTerms, setSearchTerms ] = useState("");
+    const [ showSearch, setShowSearch ] = useState(true);
     const { getCurrentUser } = useSimpleAuth();
     const { boardId } = useParams();
     const history = useHistory();
@@ -46,6 +48,10 @@ export const ActiveBoard = () => {
         setGridArray(rowsArray);;
     }, [boardSquares]);
 
+
+    const searchShow = () => {
+
+    }
 
     const deleteActiveList = () => {
 

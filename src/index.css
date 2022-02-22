@@ -141,3 +141,16 @@ select:hover {
 .switch input:checked + .slider::before {
   transform: translateX(26px);
 }
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #22277A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B9BFFF;
+}
