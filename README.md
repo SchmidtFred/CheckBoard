@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# CheckBoard
+## Summary
+Checkboard is a web-app for list management based on the checkerboard lists seen in games such as "Kirby Air Ride" and "Super Smash Bros. Brawl". The goal is to provide users with a unique and fun way to work their way through to-do lists, bucket lists, and more.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Features
+* CheckBoards are generated from lists and reveal only a few options before expanding to show other items on the list
+* Dynamic list creation which allows for different size boards up to 10 X 10
+* User created lists may be marked public for other members to see and use
+* User created lists are saved and able to be worked on later
+* In progress CheckBoards are saved and able to be continued on a user by user basis (each user gets their own copy of the baord with a randomized layout)
 
-## Available Scripts
+# How To Use
+### Warning
+The login method is for demo purposes ONLY. In its current form it is NOT SECURE. Do not create an account with your personal email address or passwords.
 
-In the project directory, you can run:
+### Instructions
+1. Clone the repo to your local machine
+2. Clone the [API](https://github.com/SchmidtFred/CheckBoard-API)
+3. Host the API using json-server on port 8088
+4. Install dependencies with `npm install` in the project directory
+5. Host the project using `npm start` in the project directory
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Planning Documents
+* [ERD](https://dbdiagram.io/d/61e1fa564bca010ae98db990)
+* [Preliminary Wireframe](https://miro.com/app/board/uXjVOVD9GiU=/?invite_link_id=640583492718)
