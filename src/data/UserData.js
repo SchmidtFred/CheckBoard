@@ -31,10 +31,10 @@ export default {
         async create(likeObject) {
             return await fetchIt(`${Settings.remoteURL}/likes`, "POST", JSON.stringify(likeObject));
         },
-        async findByUser(userId) {
+        async getByUser(userId) {
             return await fetchIt(`${Settings.remoteURL}/likes?userId=${userId}`);
         },
-        async findByTemplate(templateId) {
+        async getByTemplate(templateId) {
             return await fetchIt(`${Settings.remoteURL}/likes?listTemplateId=${templateId}`);
         },
         async getAll() {

@@ -1,0 +1,51 @@
+.container--login, .container--register, .form--register {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.container--login::after, .container--register::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #22277A;
+}
+
+.authToggle {
+    background-color: #4066E0;
+}
+
+.loginHeader {
+    margin: auto;
+}
+
+.registrationHeader {
+    margin: auto;
+    text-align: center;
+}
+
+.inputDiv {
+    position: relative;
+    padding: 15px 0 0;
+    margin: 1rem auto;
+    width: 20vw;
+    appearance: 0;
+}
+
+.bottomLogin {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+a:visited {
+    color: #B9BFFF;
+}
+
+.regBtn {
+    margin: auto;
+}

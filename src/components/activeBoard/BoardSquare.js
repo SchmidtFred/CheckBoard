@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Tilt from "react-parallax-tilt";
 import "./BoardSquare.css";
 import ActiveListData from "../../data/ActiveListData";
+import confetti from "canvas-confetti";
 
 export const BoardSquare = ({square, boardSquares, setBoardSquares}) => {
+    const [myCanvas, setCanvas ] = useState("");
 
 
+    //confetti setup
+    // useEffect(() => {
+    //     const myCanvas = document.createElement("canvas");
+    //     document.body.appendChild(myCanvas);
+    //     setCanvas(myCanvas);
+    // }, [])
     //reveal and completed functionality
     const squareClick = (event) => {
         const squareCopy = {...square};
@@ -33,6 +41,19 @@ export const BoardSquare = ({square, boardSquares, setBoardSquares}) => {
                     promiseArray.push(ActiveListData.squares.update(copy, copy.id));
                 }
             }
+            
+            const squareEl = document.querySelector(`#square--${square.id}`);
+            const domRect = squareEl.getBoundingClientRect();
+            confetti({
+                particleCount : 200,
+                spread: 360,
+                startVelocity: 30,
+                gravity: 0.7,
+                ticks: 250,
+                origin: {
+                    x: (domRect.x + (domRect.width/2))/window.innerWidth,
+                    y: (domRect.y + (domRect.height/2))/window.innerHeight
+                }})
 
             Promise.all(promiseArray).then(() => ActiveListData.squares.getAllByList(square.activeListId)).then((data) => setBoardSquares(data));
         }
@@ -40,7 +61,7 @@ export const BoardSquare = ({square, boardSquares, setBoardSquares}) => {
 
     return ( <>
     <Tilt tiltEnable={square.revealed} perspective={300} tiltReverse={true} className={`parallax-effect ${square.revealed ? square.completed ? "completed" : "revealed" : "unrevealed"}`} >
-        <div  id={square.id} className={`gridSquare column--${square.xPos}`}
+        <div  id={`square--${square.id}`} className={`gridSquare column--${square.xPos}`}
                             onClick={squareClick}>
                             <div className="squareText">{square.revealed ? square.text : "secrets"}</div>
                         </div>

@@ -35,46 +35,28 @@ export const Register = () => {
 
 
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Registration For CheckBoard</h1>
-                <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input type="text" onChange={handleUserInput}
-                        id="firstName"
-                        className="form-control"
-                        placeholder="First name"
-                        required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input type="text" onChange={handleUserInput}
-                        id="lastName"
-                        className="form-control"
-                        placeholder="Last name"
-                        required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input type="email" onChange={handleUserInput}
-                        id="email"
-                        className="form-control"
-                        placeholder="Email address"
-                        required />
-                </fieldset>
-                <fieldset>
-                        <label htmlFor="password"> Password </label>
-                        <input type="password" onChange={handleUserInput}
-                            id="password"
-                            className="form-control"
-                            placeholder="*******"
-                            required />
-                </fieldset>
-                <fieldset>
-                    <button type="submit">
-                        Sign in
-                    </button>
-                </fieldset>
+        <main className="container--register">
+            <h1 className="registrationHeader">Registration For CheckBoard</h1>
+            <form className="form--register" onSubmit={handleRegister}>
+                <div className="firstName inputDiv">
+                    <input type="text" onChange={handleUserInput} id="firstName" className="form-control" placeholder="First name" required autoFocus />
+                    <label htmlFor="firstName" className="form-label"> First Name </label>
+                </div>
+                <div className="lastName inputDiv">
+                    <input type="text" onChange={handleUserInput} id="lastName" className="form-control" placeholder="Last name" required />
+                    <label htmlFor="lastName" className="form-label"> Last Name </label>
+                </div>
+                <div className="email inputDiv">
+                    <input type="email" onChange={handleUserInput} id="email" className="form-control" placeholder="Email address" required />
+                    <label htmlFor="email" className="form-label"> Email address </label>
+                </div>
+                <div className="password inputDiv">
+                        <input type="password" onChange={handleUserInput} id="password" className="form-control" placeholder="*******" required />
+                    <label htmlFor="password" className="form-label"> Password </label>
+                </div>
+                <button type="submit regBtn" className="btn">
+                    Sign in
+                </button>
             </form>
         </main>
     )
