@@ -9,6 +9,13 @@ Checkboard is a web-app for list management based on the checkerboard lists seen
 * User created lists are saved and able to be worked on later
 * In progress CheckBoards are saved and able to be continued on a user by user basis (each user gets their own copy of the baord with a randomized layout)
 
+### Video
+
+
+https://user-images.githubusercontent.com/88502300/164377270-5e07e70e-6e78-4677-ac22-fb854951f504.mp4
+
+
+
 # How To Use
 ### Warning
 The login method is for demo purposes ONLY. In its current form it is NOT SECURE. Do not create an account with your personal email address or passwords.
